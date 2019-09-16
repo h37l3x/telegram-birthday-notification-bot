@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.7.6" />
+    <PackageReference Include="HttpToSocks5Proxy" Version="1.2.1" />
+    <PackageReference Include="Telegram.Bot" Version="15.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BirthdayNotificationService.Common\BirthdayNotificationService.Common.csproj" />
+    <ProjectReference Include="..\BirthdayNotificationService.Domain.Services\BirthdayNotificationService.Domain.Services.csproj" />
+    <ProjectReference Include="..\BirthdayNotificationService.Persistence.Repositories\BirthdayNotificationService.Persistence.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,102 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Application.WebApi", "BirthdayNotificationService.Application.WebApi\BirthdayNotificationService.Application.WebApi.csproj", "{EA697A68-9A4C-4DC3-B9F9-231DC96542D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Domain.Contracts", "BirthdayNotificationService.Domain.Contracts\BirthdayNotificationService.Domain.Contracts.csproj", "{4A62A5CC-F212-46FF-9CB3-61AE5BECBD90}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Domain.Services", "BirthdayNotificationService.Domain.Services\BirthdayNotificationService.Domain.Services.csproj", "{E1673EBF-D316-45F8-9BB3-F42C3334AF25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Common", "BirthdayNotificationService.Common\BirthdayNotificationService.Common.csproj", "{DFA14787-164D-4509-81B0-00431F640BAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Application.Contracts", "BirthdayNotificationService.Application.Contracts\BirthdayNotificationService.Application.Contracts.csproj", "{75320224-380A-4C78-BF92-5F7A7DEA3A03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Application.Handlers", "BirthdayNotificationService.Application.Handlers\BirthdayNotificationService.Application.Handlers.csproj", "{6D55376C-E999-4651-BC79-0FCA279CD3F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Persistence.Repositories", "BirthdayNotificationService.Persistence.Repositories\BirthdayNotificationService.Persistence.Repositories.csproj", "{14182048-CB3A-4397-ADB8-713A5C1EA47B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Persistence", "BirthdayNotificationService.Persistence\BirthdayNotificationService.Persistence.csproj", "{34536121-6FE5-4C11-91AE-A7BB7C9EC0F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{75924D73-F67E-412D-B93C-6AB60AE30076}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{1838133A-DD53-445A-B20B-8EBB3DC652A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{FCCF856F-F316-4070-9937-AA5BBFDD4702}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNotificationService.Persistence.Entities", "BirthdayNotificationService.Persistence.Entities\BirthdayNotificationService.Persistence.Entities.csproj", "{A9FDA302-D39F-413F-9D4B-191DAEDDC62F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A758719-B175-4908-950C-9315D3B391B2}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C8A0C434-FE4C-418D-BFD2-8476C222C42A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayNotificationService.Tests", "BirthdayNotificationService.Tests\BirthdayNotificationService.Tests.csproj", "{EE6E090B-1ACD-4219-BE78-4933A6BDD1F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA697A68-9A4C-4DC3-B9F9-231DC96542D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA697A68-9A4C-4DC3-B9F9-231DC96542D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA697A68-9A4C-4DC3-B9F9-231DC96542D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA697A68-9A4C-4DC3-B9F9-231DC96542D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A62A5CC-F212-46FF-9CB3-61AE5BECBD90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A62A5CC-F212-46FF-9CB3-61AE5BECBD90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A62A5CC-F212-46FF-9CB3-61AE5BECBD90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A62A5CC-F212-46FF-9CB3-61AE5BECBD90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1673EBF-D316-45F8-9BB3-F42C3334AF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1673EBF-D316-45F8-9BB3-F42C3334AF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1673EBF-D316-45F8-9BB3-F42C3334AF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1673EBF-D316-45F8-9BB3-F42C3334AF25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA14787-164D-4509-81B0-00431F640BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA14787-164D-4509-81B0-00431F640BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA14787-164D-4509-81B0-00431F640BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA14787-164D-4509-81B0-00431F640BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75320224-380A-4C78-BF92-5F7A7DEA3A03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75320224-380A-4C78-BF92-5F7A7DEA3A03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75320224-380A-4C78-BF92-5F7A7DEA3A03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75320224-380A-4C78-BF92-5F7A7DEA3A03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D55376C-E999-4651-BC79-0FCA279CD3F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D55376C-E999-4651-BC79-0FCA279CD3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D55376C-E999-4651-BC79-0FCA279CD3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D55376C-E999-4651-BC79-0FCA279CD3F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14182048-CB3A-4397-ADB8-713A5C1EA47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14182048-CB3A-4397-ADB8-713A5C1EA47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14182048-CB3A-4397-ADB8-713A5C1EA47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14182048-CB3A-4397-ADB8-713A5C1EA47B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34536121-6FE5-4C11-91AE-A7BB7C9EC0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34536121-6FE5-4C11-91AE-A7BB7C9EC0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34536121-6FE5-4C11-91AE-A7BB7C9EC0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34536121-6FE5-4C11-91AE-A7BB7C9EC0F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9FDA302-D39F-413F-9D4B-191DAEDDC62F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FDA302-D39F-413F-9D4B-191DAEDDC62F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FDA302-D39F-413F-9D4B-191DAEDDC62F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FDA302-D39F-413F-9D4B-191DAEDDC62F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE6E090B-1ACD-4219-BE78-4933A6BDD1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6E090B-1ACD-4219-BE78-4933A6BDD1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6E090B-1ACD-4219-BE78-4933A6BDD1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6E090B-1ACD-4219-BE78-4933A6BDD1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4A62A5CC-F212-46FF-9CB3-61AE5BECBD90} = {1838133A-DD53-445A-B20B-8EBB3DC652A1}
+		{E1673EBF-D316-45F8-9BB3-F42C3334AF25} = {1838133A-DD53-445A-B20B-8EBB3DC652A1}
+		{75320224-380A-4C78-BF92-5F7A7DEA3A03} = {75924D73-F67E-412D-B93C-6AB60AE30076}
+		{6D55376C-E999-4651-BC79-0FCA279CD3F3} = {75924D73-F67E-412D-B93C-6AB60AE30076}
+		{14182048-CB3A-4397-ADB8-713A5C1EA47B} = {FCCF856F-F316-4070-9937-AA5BBFDD4702}
+		{34536121-6FE5-4C11-91AE-A7BB7C9EC0F4} = {FCCF856F-F316-4070-9937-AA5BBFDD4702}
+		{A9FDA302-D39F-413F-9D4B-191DAEDDC62F} = {FCCF856F-F316-4070-9937-AA5BBFDD4702}
+		{EE6E090B-1ACD-4219-BE78-4933A6BDD1F9} = {C8A0C434-FE4C-418D-BFD2-8476C222C42A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8809F79-DB00-45B1-A9A8-570DB531FA59}
+	EndGlobalSection
+EndGlobal
