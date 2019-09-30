@@ -21,29 +21,6 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BirthdayNotificationService.Domain.Services.BirthdayNotificationServices
 {
-    public class GetUserFullInfoResponse
-    {
-        public long UserId { get; set; }
-        public string Username { get; set; }
-    }
-
-    public class GetUserFullInfoRequest : IRequest<object>
-    {
-        public long Id { get; set; }
-
-        public HttpMethod Method => new HttpMethod("POST");
-
-        public string MethodName => "users.getFullUser";
-
-        public HttpContent ToHttpContent()
-        {
-            return new StringContent(JsonConvert.SerializeObject(new
-            {
-                Id = Id
-            }), Encoding.UTF8, "application/json");
-        }
-    }
-
     public class BirthdayNotificationBotService : IBirthdayNotificationService
     {
         private Dictionary<string, BirthdayNotificationScheduleBotCommandTypes> _commandNameToTypeMap = new Dictionary<string, BirthdayNotificationScheduleBotCommandTypes>
@@ -252,7 +229,7 @@ namespace BirthdayNotificationService.Domain.Services.BirthdayNotificationServic
 
                 if (commandType == BirthdayNotificationScheduleBotCommandTypes.Birthdays)
                 {
-                    if (telegramChat.BirthdayNotificationSchedules == null || !telegramChat.BirthdayNotificationSchedules.Any())
+                    if (telegramChat.BirthdayNotificationSchedules == null || !telegramChat.BirthdayNotificationSchedules.Any() || (!telegramChat.BirthdayNotificationSchedules.First()?.Birthdays.Any() ?? false))
                     {
                         await BotClient.SendTextMessageAsync(chatId: update.Message.Chat, text: "Вы еще не импортировали ни одного дня рождения", replyToMessageId: update.Message.MessageId);
                         return;

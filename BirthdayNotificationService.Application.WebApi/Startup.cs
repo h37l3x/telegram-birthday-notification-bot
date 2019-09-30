@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using BirthdayNotificationService.Application.Handlers.Commands;
@@ -6,7 +7,8 @@ using BirthdayNotificationService.Common.ConfigOptions;
 using BirthdayNotificationService.Domain.Services.BirthdayNotificationServices;
 using BirthdayNotificationService.Persistence;
 using BirthdayNotificationService.Persistence.Repositories;
-
+using ElmahCore;
+using ElmahCore.Mvc;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
@@ -47,7 +49,9 @@ namespace BirthdayNotificationService.Application.WebApi
             services.AddOptions();
             services.Configure<AuthOptions>(Configuration.GetSection("AuthOptions"));
 
-            services.AddScoped(x => GetBirthdayScheduleTelegramBotJobsHandler(x));
+            services.AddSingleton<ErrorLog>(x => new XmlFileErrorLog(x.GetService<IOptions<ElmahOptions>>(), x.GetService<IHostingEnvironment>()));
+            services.AddSingleton(x => GetTelegramBotClient(x));
+            services.AddScoped<BirthdayScheduleTelegramBotJobsHandler>();
             services.AddScoped<BirthdayService>();
             services.AddScoped<BirthdayNotificationsService>();
             services.AddScoped<BirthdayNotificationScheduleRepository>();
@@ -73,9 +77,14 @@ namespace BirthdayNotificationService.Application.WebApi
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddElmah<XmlFileErrorLog>(o =>
+            {
+                o.LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs/elmah");
+            });
         }
 
-        private BirthdayScheduleTelegramBotJobsHandler GetBirthdayScheduleTelegramBotJobsHandler(IServiceProvider serviceProvider)
+        private ITelegramBotClient GetTelegramBotClient(IServiceProvider serviceProvider)
         {
             var authOptionsAccessor = serviceProvider.GetService<IOptionsMonitor<AuthOptions>>();
             var authOptions = authOptionsAccessor.CurrentValue;
@@ -91,11 +100,7 @@ namespace BirthdayNotificationService.Application.WebApi
             var httpClient = new HttpClient(handler, true);
 
             var botClient = new TelegramBotClient(authOptions.BirthdaySheduleTelegramBotToken, httpClient);
-
-            return new BirthdayScheduleTelegramBotJobsHandler(authOptionsAccessor, 
-                serviceProvider.GetService<BirthdayNotificationScheduleRepository>(), 
-                serviceProvider.GetService<BirthdayNotificationsService>(), 
-                botClient);
+            return botClient;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,6 +128,8 @@ namespace BirthdayNotificationService.Application.WebApi
 
             //app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseElmah();
         }
     }
 

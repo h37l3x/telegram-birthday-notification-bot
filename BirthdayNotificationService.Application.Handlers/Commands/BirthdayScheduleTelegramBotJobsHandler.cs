@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using BirthdayNotificationService.Common.ConfigOptions;
 using BirthdayNotificationService.Domain.Services.BirthdayNotificationServices;
 using BirthdayNotificationService.Persistence.Repositories;
-
+using ElmahCore;
 using Hangfire;
-
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 
 using MihaZupan;
@@ -21,16 +21,19 @@ namespace BirthdayNotificationService.Application.Handlers.Commands
     public class BirthdayScheduleTelegramBotJobsHandler
     {
         private AuthOptions _authOptions;
+        private readonly ErrorLog _errorLog;
         private readonly ITelegramBotClient _telegramBotClient;
         private readonly BirthdayNotificationScheduleRepository _birthdayScheduleTelegramBotRepository;
         private readonly BirthdayNotificationsService _birthdayNotificationsService;
 
-        public BirthdayScheduleTelegramBotJobsHandler(IOptionsMonitor<AuthOptions> authOptionsAccessor,
+        public BirthdayScheduleTelegramBotJobsHandler(ErrorLog errorLog, 
+            IOptionsMonitor<AuthOptions> authOptionsAccessor,
             BirthdayNotificationScheduleRepository birthdayScheduleTelegramBotRepository,
             BirthdayNotificationsService birthdayNotificationsService,
             ITelegramBotClient telegramBotClient)
         {
             _authOptions = authOptionsAccessor.CurrentValue;
+            _errorLog = errorLog ?? throw new ArgumentNullException(nameof(errorLog));
             _birthdayScheduleTelegramBotRepository = birthdayScheduleTelegramBotRepository ?? throw new ArgumentNullException(nameof(birthdayScheduleTelegramBotRepository));
             _birthdayNotificationsService = birthdayNotificationsService ?? throw new ArgumentNullException(nameof(birthdayNotificationsService));
             _telegramBotClient = telegramBotClient ?? throw new ArgumentNullException(nameof(telegramBotClient));
@@ -40,22 +43,38 @@ namespace BirthdayNotificationService.Application.Handlers.Commands
 
         public async Task ProcessUpdates(IJobCancellationToken cancellationToken)
         {
-            var offset = 0;
-            while (true)
+            try
             {
-                cancellationToken.ThrowIfCancellationRequested();
+                var offset = 0;
+                while (true)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
 
-                offset = await Tick(_telegramBotClient, offset);
-                Thread.Sleep(1000);
+                    offset = await Tick(_telegramBotClient, offset);
+                    await Task.Delay(1000);
+                }
+            }
+            catch (Exception ex)
+            {
+                await _errorLog.LogAsync(new Error(ex));
+                throw;
             }
         }
 
         public async Task Notify(IJobCancellationToken cancellationToken)
         {
-            await _birthdayNotificationsService.CheckAndNotify(() =>
+            try
             {
-                cancellationToken.ThrowIfCancellationRequested();
-            });
+                await _birthdayNotificationsService.CheckAndNotify(() =>
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                });
+            }
+            catch (Exception ex)
+            {
+                await _errorLog.LogAsync(new Error(ex));
+                throw;
+            }
         }
 
         private async Task<int> Tick(ITelegramBotClient botClient, int offset)
