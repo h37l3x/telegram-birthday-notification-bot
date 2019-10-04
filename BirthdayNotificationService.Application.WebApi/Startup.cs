@@ -88,19 +88,25 @@ namespace BirthdayNotificationService.Application.WebApi
         {
             var authOptionsAccessor = serviceProvider.GetService<IOptionsMonitor<AuthOptions>>();
             var authOptions = authOptionsAccessor.CurrentValue;
-            var proxy = new HttpToSocks5Proxy(authOptions.Socks5Hostname, authOptions.Socks5Port, authOptions.Socks5Username, authOptions.Socks5Password);
-            proxy.ResolveHostnamesLocally = true;
-
-            var handler = new HttpClientHandler
-            {
-                Proxy = proxy,
-                UseProxy = true,
-                UseDefaultCredentials = false
-            };
-            var httpClient = new HttpClient(handler, true);
+            HttpClient httpClient = GetClient();
 
             var botClient = new TelegramBotClient(authOptions.BirthdaySheduleTelegramBotToken, httpClient);
             return botClient;
+
+            HttpClient GetClient()
+            {
+                if (!authOptions.UseTelegramProxy)
+                    return new HttpClient();
+
+                var proxy = new HttpToSocks5Proxy(authOptions.Socks5Hostname, authOptions.Socks5Port, authOptions.Socks5Username, authOptions.Socks5Password);
+                proxy.ResolveHostnamesLocally = true;
+                return new HttpClient(new HttpClientHandler
+                {
+                    Proxy = proxy,
+                    UseProxy = true,
+                    UseDefaultCredentials = false
+                }, true);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

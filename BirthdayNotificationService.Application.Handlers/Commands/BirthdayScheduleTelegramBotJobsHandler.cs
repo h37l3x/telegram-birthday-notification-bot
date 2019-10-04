@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
+
 using BirthdayNotificationService.Common.ConfigOptions;
 using BirthdayNotificationService.Domain.Services.BirthdayNotificationServices;
 using BirthdayNotificationService.Persistence.Repositories;
+
 using ElmahCore;
+
 using Hangfire;
-using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.Extensions.Options;
 
-using MihaZupan;
 using Telegram.Bot;
 
 namespace BirthdayNotificationService.Application.Handlers.Commands
