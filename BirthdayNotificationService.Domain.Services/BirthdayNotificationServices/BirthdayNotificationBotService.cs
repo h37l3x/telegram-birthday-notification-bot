@@ -25,9 +25,6 @@ namespace BirthdayNotificationService.Domain.Services.BirthdayNotificationServic
     {
         private Dictionary<string, BirthdayNotificationScheduleBotCommandTypes> _commandNameToTypeMap = new Dictionary<string, BirthdayNotificationScheduleBotCommandTypes>
         {
-            { "/add_user", BirthdayNotificationScheduleBotCommandTypes.SubscribeUserToNotification },
-            { "/remove_user", BirthdayNotificationScheduleBotCommandTypes.UnsubscribeUserFromNotification },
-            { "/set_notification_message", BirthdayNotificationScheduleBotCommandTypes.SetNotificationMessage },
             { "/set_notification_delay_in_days", BirthdayNotificationScheduleBotCommandTypes.SetNotificationDelayInDays },
             { "/import_birthdays", BirthdayNotificationScheduleBotCommandTypes.ImportBirthdays },
             { "/birthdays", BirthdayNotificationScheduleBotCommandTypes.Birthdays },
@@ -83,47 +80,6 @@ namespace BirthdayNotificationService.Domain.Services.BirthdayNotificationServic
 
                 switch (telegramChat.LastCommandType)
                 {
-                    case BirthdayNotificationScheduleBotCommandTypes.SubscribeUserToNotification:
-                        //if (update.Message.Contact == null)
-                        //{
-                        //    await BotClient.SendTextMessageAsync(chatId: update.Message.Chat, text: "Бот ожидает, что Вы отправите контакт другого пользователя", replyToMessageId: update.Message.MessageId);
-                        //    return;
-                        //}
-
-                        //if (telegramChat.BirthdayNotificationSchedules == null)
-                        //    telegramChat.BirthdayNotificationSchedules = new List<BirthdayNotificationSchedule>();
-
-                        //if (!telegramChat.BirthdayNotificationSchedules.Any())
-                        //    telegramChat.BirthdayNotificationSchedules.Add(new BirthdayNotificationSchedule
-                        //    {
-                        //        DaysCountBeforeNotificaiton = 2,
-                        //        NotificationChatWelcomeMessage = null,
-                        //        TelegramChatId = telegramChat.Id
-                        //    });
-
-                        //var schedule = telegramChat.BirthdayNotificationSchedules.First();
-                        //if (schedule.ScheduleTelegramUsers == null)
-                        //    schedule.ScheduleTelegramUsers = new List<BirthdayNotificationScheduleUser>();
-
-                        //if (schedule.ScheduleTelegramUsers.Any(x => x.UserExternalId == update.Message.Contact.UserId))
-                        //{
-                        //    await BotClient.SendTextMessageAsync(chatId: update.Message.Chat, text: "Пользователь уже существует", replyToMessageId: update.Message.MessageId);
-                        //}
-                        //else
-                        //{
-                        //    schedule.ScheduleTelegramUsers.Add(new BirthdayNotificationScheduleUser
-                        //    {
-                        //        UserExternalId = update.Message.Contact.UserId,
-                        //        FirstName = update.Message.Contact.FirstName,
-                        //        LastName = update.Message.Contact.LastName,
-                        //        Phone = update.Message.Contact.PhoneNumber
-                        //    });
-
-                        //    await UpdateChatLastCommand(telegramChat, BirthdayNotificationScheduleBotCommandTypes.None);
-                        //    await BotClient.SendTextMessageAsync(chatId: update.Message.Chat, text: "Пользователь добавлен", replyToMessageId: update.Message.MessageId);
-                        //}
-
-                        break;
                     case BirthdayNotificationScheduleBotCommandTypes.ImportBirthdays:
                         try
                         {
@@ -179,11 +135,6 @@ namespace BirthdayNotificationService.Domain.Services.BirthdayNotificationServic
                             throw;
                         }
 
-                        break;
-                    case BirthdayNotificationScheduleBotCommandTypes.SetNotificationMessage:
-                        await BotClient.SendTextMessageAsync(chatId: update.Message.Chat, text: "Сообщение для уведомления сохранено", replyToMessageId: update.Message.MessageId);
-                        telegramChat.LastCommandType = BirthdayNotificationScheduleBotCommandTypes.None;
-                        await BirthdayScheduleTelegramBotRepository.UpdateChat(telegramChat);
                         break;
                     case BirthdayNotificationScheduleBotCommandTypes.SetNotificationDelayInDays:
 
@@ -269,15 +220,6 @@ namespace BirthdayNotificationService.Domain.Services.BirthdayNotificationServic
 
             switch (commandType.Value)
             {
-                case BirthdayNotificationScheduleBotCommandTypes.SubscribeUserToNotification:
-                    text = $@"Для добавления пользователя укажите следующим сообщением его данные в формате:{Environment.NewLine}``` <логин пользователя> - <день рождения в формате dd.MM> ```";
-                    return true;
-                case BirthdayNotificationScheduleBotCommandTypes.UnsubscribeUserFromNotification:
-                    text = "Для удаления пользователя укажите следующим сообщением его логин";
-                    return true;
-                case BirthdayNotificationScheduleBotCommandTypes.SetNotificationMessage:
-                    text = "Для установления приветственного сообщения укажите его следующим сообщением в удобном для Вас формате";
-                    return true;
                 case BirthdayNotificationScheduleBotCommandTypes.SetNotificationDelayInDays:
                     text = $"За сколько дней нужно сообщать о дне рождения?{Environment.NewLine}Требуется указать цифру{Environment.NewLine}";
                     if (telegramChat.BirthdayNotificationSchedules != null && telegramChat.BirthdayNotificationSchedules.Any())
